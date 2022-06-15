@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'note_details.dart';
+import 'dart:async';
+import 'package:Notes/Models/note.dart';
+import 'package:Notes/utils/database_helper.dart';
+import 'package:sqflite/sqflite.dart';
+
 
 class NoteList extends StatefulWidget {
+
+
   @override
   State<StatefulWidget> createState() {
     return NoteListState();
@@ -9,10 +16,17 @@ class NoteList extends StatefulWidget {
 }
 
 class NoteListState extends State<NoteList> {
+  DatabaseHelper databaseHelper= DatabaseHelper();
+  late List<Note> noteList;
   int count = 0;
 
   @override
   Widget build(BuildContext context) {
+
+    if(noteList==null)
+      {
+        noteList= List<Note>();
+      }
     return Scaffold(
       appBar: AppBar(
         title: Text('Notes'),

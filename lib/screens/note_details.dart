@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:Notes/Models/note.dart';
+import 'package:Notes/utils/database_helper.dart';
+import 'package:sqflite/sqflite.dart';
 
 class Notedetails extends StatefulWidget {
   String appbartitle;
