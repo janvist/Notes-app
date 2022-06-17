@@ -45,7 +45,7 @@ class DatabaseHelper{
   }
 
   //fetch operation to get all note objects from database
-  Future<List<Map<String,dynamic>>>getNoteMapList() async{
+  Future<List<Map<String,dynamic>>>  getNoteMapList() async{
     Database db= await this.database;
     
     //var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC'); //raw query fn
@@ -78,5 +78,19 @@ class DatabaseHelper{
     List<Map<String, dynamic>> x= await db.rawQuery('SELECT COUNT (*) FROM $noteTable');
     int ?result = Sqflite.firstIntValue(x);
     return result!;
+  }
+  //get the 'Map List' [ List<Map> ] and convert it to 'Note List' [List<Note>]
+  Future<List<Note>> getNoteList() async{
+    var noteMapList = await getNoteMapList();
+    int count = noteMapList.length;
+
+    List<Note> noteList = <Note>[];
+
+    for(int i=0;i< count;i++)
+      {
+        noteList.add(Note.fromMap(noteMapList[i]));
+      }
+      return noteList;
+
   }
 }
